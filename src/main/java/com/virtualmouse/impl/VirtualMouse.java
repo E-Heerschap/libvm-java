@@ -1,7 +1,8 @@
 package com.virtualmouse.impl;
 
-import com.virtualmouse.vmnative.MouseEvent;
+import com.virtualmouse.vmnative.vmMouseEvent;
 import com.virtualmouse.vmnative.libvm;
+import com.virtualmouse.vmnative.vmMouseEvent;
 
 import java.io.IOException;
 
@@ -22,10 +23,13 @@ public class VirtualMouse {
     public boolean isOpen() { return fileDescriptor >= 0; }
 
     public void open(String path) throws IOException{
+
+        if (isOpen()) throw new VirtualMouseError("Already open!");
+
         if ((this.fileDescriptor = clibvm.getFileDesc(path)) < 0) {
-            throw new IOException("VirtualMouse failed to open and retrieve" +
-                    "a file descriptor.");
-        };
+            throw new IOException(String.format("VirtualMouse failed to open and retrieve" +
+                    "a file descriptor. Error code: %d", fileDescriptor));
+        }
     }
 
     public void close() {
@@ -34,12 +38,12 @@ public class VirtualMouse {
         }
     }
 
-    int sendEvent(final MouseEvent event) throws IOException{
+    public int sendEvent(final vmMouseEvent event) throws IOException{
         throwIfNotOpen();
         return clibvm.fdSendIOCTLEvent(this.fileDescriptor, event);
     }
 
-    int sendEvents(final int file_desc, final MouseEvent[] event) throws IOException{
+    public int sendEvents(final int file_desc, final vmMouseEvent[] event) throws IOException{
         throwIfNotOpen();
         return clibvm.fdSendIOCTLEvents(file_desc, event, event.length);
     }

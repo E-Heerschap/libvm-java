@@ -14,6 +14,4 @@ public class Buttons extends Structure {
      */
     public byte _buttons;
 
-    private static libvm clibvm = libvm.libvm;
-
 }

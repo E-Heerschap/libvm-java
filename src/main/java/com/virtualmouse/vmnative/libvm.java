@@ -5,7 +5,7 @@ import com.sun.jna.Native;
 
 public interface libvm extends Library {
 
-    static final libvm libvm = (libvm) Native.load("vm", libvm.class);
+    final libvm libvm = (libvm) Native.load("vm", libvm.class);
 
     /**
      * Opens the file for the process and returns the file descriptor.
@@ -49,12 +49,12 @@ public interface libvm extends Library {
 
     Buttons getLeftClick();
 
-    int fdSendIOCTLEvent(int file_desc, final MouseEvent event);
+    int fdSendIOCTLEvent(int file_desc, final vmMouseEvent event);
 
-    int fdSendIOCTLEvents(int file_desc, final MouseEvent[] event, final int size);
+    int fdSendIOCTLEvents(int file_desc, final vmMouseEvent[] event, final int size);
 
-    MouseEvent addMouseEvents(final MouseEvent ev1, final MouseEvent ev2);
+    vmMouseEvent addMouseEvents(final vmMouseEvent ev1, final vmMouseEvent ev2);
 
-    MouseEvent buildMouseEvent(final int dx, final int dy, final byte button);
+    vmMouseEvent buildMouseEvent(final int dx, final int dy, final Buttons button);
 
 }
