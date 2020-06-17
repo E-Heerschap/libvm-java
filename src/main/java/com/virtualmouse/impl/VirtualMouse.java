@@ -40,9 +40,24 @@ public class VirtualMouse {
         return libvm.lib.fdSendIOCTLEvent(this.fileDescriptor, event);
     }
 
-    public int sendEvents(final int file_desc, final vmMouseEvent[] event) throws IOException{
+    public int sendEvents(final vmMouseEvent[] event) throws IOException{
         throwIfNotOpen();
-        return libvm.lib.fdSendIOCTLEvents(file_desc, event, event.length);
+        return libvm.lib.fdSendIOCTLEvents(this.fileDescriptor, event, event.length);
+    }
+
+    public int moveMouse(int x, int y) throws IOException {
+        throwIfNotOpen();
+        return libvm.lib.fdMoveMouse(this.fileDescriptor, x, y);
+    }
+
+    public int rightClick() throws IOException {
+        throwIfNotOpen();
+        return libvm.lib.fdRightClick(this.fileDescriptor);
+    }
+
+    public int leftClick() throws IOException {
+        throwIfNotOpen();
+        return libvm.lib.fdLeftClick(this.fileDescriptor);
     }
 
 
