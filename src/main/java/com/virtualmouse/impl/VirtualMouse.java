@@ -1,14 +1,14 @@
 package com.virtualmouse.impl;
 
+import com.virtualmouse.vmnative.LibLoader;
 import com.virtualmouse.vmnative.vmMouseEvent;
 import com.virtualmouse.vmnative.libvm;
-import com.virtualmouse.vmnative.vmMouseEvent;
 
 import java.io.IOException;
 
 public class VirtualMouse {
 
-    private static final libvm clibvm = libvm.libvm;
+    private static libvm clibvm = LibLoader.getLibVm();
 
     private int fileDescriptor = -1;
 

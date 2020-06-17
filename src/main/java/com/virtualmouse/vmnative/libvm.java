@@ -1,11 +1,8 @@
 package com.virtualmouse.vmnative;
 
 import com.sun.jna.Library;
-import com.sun.jna.Native;
 
 public interface libvm extends Library {
-
-    final libvm libvm = (libvm) Native.load("vm", libvm.class);
 
     /**
      * Opens the file for the process and returns the file descriptor.
@@ -35,7 +32,7 @@ public interface libvm extends Library {
 
     void setButtonsFromByte(Buttons but, byte b);
 
-    Buttons buttonsFromByte(byte b);
+    Buttons.ByValue buttonsFromByte(byte b);
 
     Buttons addButtons(Buttons b1, Buttons b2);
 
@@ -45,9 +42,9 @@ public interface libvm extends Library {
         flag. This declares the getRightClick and getLeftClick functions.
      */
 
-    Buttons getRightClick();
+    Buttons.ByValue getRightClick();
 
-    Buttons getLeftClick();
+    Buttons.ByValue getLeftClick();
 
     int fdSendIOCTLEvent(int file_desc, final vmMouseEvent event);
 
@@ -55,6 +52,6 @@ public interface libvm extends Library {
 
     vmMouseEvent addMouseEvents(final vmMouseEvent ev1, final vmMouseEvent ev2);
 
-    vmMouseEvent buildMouseEvent(final int dx, final int dy, final Buttons button);
+    vmMouseEvent.ByValue buildMouseEvent(final int dx, final int dy, final Buttons button);
 
 }
