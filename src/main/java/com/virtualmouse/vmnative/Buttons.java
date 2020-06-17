@@ -7,6 +7,12 @@ public class Buttons extends Structure {
 
     public static class ByValue extends Buttons implements Structure.ByValue {
 
+        public ByValue() { }
+
+        public ByValue(byte buttons) {
+            this._buttons = buttons;
+        }
+
         /**
          * This is used when a Buttons * struct is required but only the
          * Buttons.ByValue is present.
@@ -26,6 +32,10 @@ public class Buttons extends Structure {
 
     public Buttons(byte buttons) {
         this._buttons = buttons;
+    }
+
+    Buttons.ByValue toVal() {
+        return new Buttons.ByValue(this._buttons);
     }
 
     /**

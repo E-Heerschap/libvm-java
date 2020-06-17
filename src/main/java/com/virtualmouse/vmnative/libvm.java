@@ -1,8 +1,11 @@
 package com.virtualmouse.vmnative;
 
 import com.sun.jna.Library;
+import com.sun.jna.Native;
 
 public interface libvm extends Library {
+
+    public static libvm lib = (libvm) Native.load("vm", libvm.class);
 
     /**
      * Opens the file for the process and returns the file descriptor.
@@ -52,6 +55,6 @@ public interface libvm extends Library {
 
     vmMouseEvent addMouseEvents(final vmMouseEvent ev1, final vmMouseEvent ev2);
 
-    vmMouseEvent.ByValue buildMouseEvent(final int dx, final int dy, final Buttons button);
+    vmMouseEvent.ByValue buildMouseEvent(final int dx, final int dy, Buttons.ByValue button);
 
 }
